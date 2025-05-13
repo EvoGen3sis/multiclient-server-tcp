@@ -1,0 +1,13 @@
+echo_server/
+├── __init__.py
+├── server.py              # Main entry point to start the server
+├── config.py              # Load server settings (host, port, etc.)
+├── connection.py          # Socket setup, listen, accept connections
+├── handler.py             # Receive data, echo it back, manage per-client logic
+├── logger.py              # Logging utility
+├── utils.py               # Common utilities (e.g., message boundary helpers)
+├── shutdown.py            # Signal handling for graceful shutdown
+└── tests/
+    ├── __init__.py
+    ├── test_echo.py       # Unit tests for echo logic
+    └── test_connection.py # Tests for socket handling
