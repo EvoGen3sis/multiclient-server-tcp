@@ -1,6 +1,6 @@
 import socket as socket
 
-HOST, PORT = "", 20001
+HOST, PORT = "", 2119
 
 def socket_init():
     pass
