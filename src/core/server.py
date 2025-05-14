@@ -2,13 +2,13 @@ import socket as socket
 
 addr = ("127.0.0.1", 2119)
 
-echo_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Initialise server (tcp) socket.
+echo_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Initialise server socket (AF_INET = IPv4, SOCK_STREAM = TCP).
 echo_sock.bind(addr) # Bind socket to address tuple e.g. (host, port).
-echo_sock.listen() # Listen for incoming requests on server socket.
+echo_sock.listen() # Puts the server in a passive listening mode, ready for accept().
 
 try:
     while True:
-        cli_sock, cli_addr = echo_sock.accept() # Accepts a connection, returns a new socket to talk to the client.
+        cli_sock, cli_addr = echo_sock.accept() # Accepts a connection, returns a new socket to talk to the client (cli_sock).
         # Client and server now communicate directly via this connected socket (cli_sock).
         try:
             while True:
