@@ -1,0 +1,44 @@
+TCP Echo Server Upgrade Plan
+============================
+
+Goal:
+- Add support for multiple clients
+- Log connection events
+- Track active client sessions
+
+-------------------------------------
+PART 1: Support Multiple Clients
+-------------------------------------
+Step 1: Keep the main server socket and `while True` loop using `accept()`
+Step 2: When a client connects, create a new thread (or process) to handle that client
+Step 3: Move the client's `recv()`, `send()`, and `close()` logic into that thread
+Step 4: Let each thread run independently so multiple clients can connect and interact
+Step 5: Main thread keeps listening for new connections
+
+-------------------------------------
+PART 2: Logging Connection Events
+-------------------------------------
+Step 1: Use the `logging` module (or print for testing)
+Step 2: Log when:
+  - A client connects (include IP and port)
+  - A client sends data
+  - A client disconnects
+  - An error occurs
+Step 3: Include timestamps for each event (optional)
+
+-------------------------------------
+PART 3: Track Active Clients
+-------------------------------------
+Step 1: Create a list or dictionary to track connected clients
+Step 2: Add each client’s address to the list when they connect
+Step 3: Remove them from the list when they disconnect or error out
+Step 4: If using threads, ensure the list is thread-safe (use a Lock or Queue)
+Step 5: Optionally print or log the active clients periodically
+
+-------------------------------------
+FINAL STEP: Graceful Server Shutdown
+-------------------------------------
+Step 1: Wrap the server loop in a try block and catch `KeyboardInterrupt`
+Step 2: Log or print a shutdown message
+Step 3: Close the main server socket
+Step 4: Optionally wait for client threads to finish (if using threading)
