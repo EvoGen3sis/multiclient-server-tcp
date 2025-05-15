@@ -13,3 +13,12 @@ class Server:
 
 
 
+
+
+
+
+
+
+
+
+server = Server()
