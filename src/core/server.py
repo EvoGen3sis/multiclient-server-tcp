@@ -10,15 +10,24 @@ class Server:
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.clients = []
 
-
-
-
-
-
-
-
-
-
-
+    def start():
+        server.bind(host, port)
+        server.listen()
+        client_socket = server.accept()
+        
+        try:
+            while True:
+                try:
+                    data = client_socket.recv(1024)
+                    if not data:
+                        break
+                finally:
+                    client_socket.close()
+                    print(f"")
+        except KeyboardInterrupt:
+            print(f"")
+        finally:
+            server.close()
+            print(f"")
 
 server = Server()
