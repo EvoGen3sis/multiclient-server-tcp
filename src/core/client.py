@@ -1,4 +1,7 @@
 import socket
+import datetime
+import time
+import threading
 
 class Client:
     def __init__(self, conn, addr, username, id, message):
@@ -8,11 +11,14 @@ class Client:
         self.id = id
         self.message = message
 
-    def send(self, message):
+    def send(self):
      pass
 
-     def recv(self, message):
+     def recv(self):
         pass
 
-     def start():
+     def conn(self):
+        pass
+     
+     def disconn(self):
         pass

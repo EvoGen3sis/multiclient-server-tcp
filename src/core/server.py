@@ -12,6 +12,18 @@ class Server:
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.clients = []
 
+    def client_accept(self):
+        pass
+
+    def broadcast(self):
+        pass
+
+    def client_remove():
+        pass
+
+    def shutdown():
+        pass
+    
     def start(self):
         self.server.bind((self.host, self.port))
         self.server.listen()
