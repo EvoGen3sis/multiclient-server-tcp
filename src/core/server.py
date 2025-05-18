@@ -18,12 +18,13 @@ class Server:
     def broadcast(self):
         pass
 
-    def client_remove():
+    def client_remove(self):
         pass
 
-    def shutdown():
-        pass
-    
+    def shutdown(self):
+        print(f"Server is shutting down...")
+        self.server.close()
+
     def start(self):
         self.server.bind((self.host, self.port))
         self.server.listen()
