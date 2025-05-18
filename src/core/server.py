@@ -56,3 +56,4 @@ class Server:
     
 
 server = Server()
+print(server.shutdown())
