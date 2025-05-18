@@ -21,7 +21,7 @@ class Server:
     def client_remove(self):
         pass
 
-    def shutdown(self):
+    def shutdown(self): # This method is liable to change
         messages = ["Server has shut down gracefully. (＾▽＾)/",
                     "Server is going to sleep now... (￣ー￣) zzZ",
                     "Cleaning up connections... all done! (⌒‿⌒)",
