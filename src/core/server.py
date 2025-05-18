@@ -22,8 +22,16 @@ class Server:
         pass
 
     def shutdown(self):
-        print(f"Server is shutting down...")
+        messages = ["Server has shut down gracefully. (＾▽＾)/",
+                    "Server is going to sleep now... (￣ー￣) zzZ",
+                    "Cleaning up connections... all done! (⌒‿⌒)",
+                    "Emergency shutdown initiated! (╯°□°）╯",
+                    "Server has shut down... see you next time. (ノ﹏ヽ)",
+                    "Server out. Catch you later! (⌐■_■)"]
+        
         self.server.close()
+        for i in messages:
+            print(f"{messages}\n") # Implement random for loop
 
     def start(self):
         self.server.bind((self.host, self.port))
