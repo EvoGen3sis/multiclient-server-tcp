@@ -12,20 +12,10 @@ class Server:
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.clients = []
 
-    def timer(func):
-        def wrapper():
-            t1 = time.time()
-            target = func()
-            t2 = time.time()
-            diff = t2 - t1
-            print(f"{diff:.2f}")
-            return diff, target
-        return wrapper
-
-    def start():
-        server.bind(host, port)
-        server.listen()
-        client_socket = server.accept()
+    def start(self):
+        self.server.bind((self.host, self.port))
+        self.server.listen()
+        client_socket = self.server.accept()
         
         try:
             while True:
