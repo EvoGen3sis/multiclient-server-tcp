@@ -39,14 +39,14 @@ class Server:
         print(f"\n{rand_message}")
 
     def handle(self, client_socket, client_addr):
+        client_inst = Client(client_socket, client_addr)
         try:
             while True:
-                client_inst = Client(client_socket, client_addr)
                 data = client_inst.client_socket.recv(1024)
                 if not data:
                     break
                 else:
-                    client_inst.client_socket.send(data)
+                    client_inst.client_socket.sendall()
         finally:
             client_inst.client_socket.close()
 
