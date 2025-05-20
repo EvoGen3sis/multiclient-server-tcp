@@ -2,6 +2,10 @@ import socket
 import threading
 import datetime
 import time
+import random
+from concurrent.futures import ThreadPoolExecutor
+from client import Client
+
 
 host, port = "127.0.0.1", 2119
 
@@ -11,6 +15,7 @@ class Server:
         self.port = port
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.clients = []
+        self.pool = ThreadPoolExecutor(4)
 
     def client_accept(self):
         pass
@@ -30,30 +35,36 @@ class Server:
                     "Server out. Catch you later! (⌐■_■)"]
         
         self.server.close()
-        for i in messages:
-            print(f"{messages}\n") # Implement random for loop
+        rand_message = random.choice(list(messages))
+        print(f"\n{rand_message}")
+
+    def handle(self, client_socket, client_addr):
+        try:
+            while True:
+                client_inst = Client(client_socket, client_addr)
+                data = client_inst.client_socket.recv(1024)
+                if not data:
+                    break
+                else:
+                    client_inst.client_socket.send(data)
+        finally:
+            client_inst.client_socket.close()
 
     def start(self):
         self.server.bind((self.host, self.port))
-        self.server.listen()
-        client_socket = self.server.accept()
-        
+        self.server.listen(4)
+        print(f"Starting...")
         try:
             while True:
-                try:
-                    data = client_socket.recv(1024)
-                    if not data:
-                        break
-                finally:
-                    client_socket.close()
-                    print(f"")
+                client_socket, client_addr = self.server.accept()
+                self.pool.submit(self.handle, client_socket, client_addr)
         except KeyboardInterrupt:
             print(f"")
         finally:
-            server.close()
+            self.pool.shutdown(wait = True)
+            self.shutdown()
             print(f"")
 
-    
-
 server = Server()
+server.start()
 #print(server.shutdown())
