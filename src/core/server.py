@@ -22,8 +22,8 @@ class Server:
         pass
 
     def shutdown(self): # This method is liable to change
-        messages = ["Server has shut down gracefully. (＾▽＾)/",
-                    "Server is going to sleep now... (￣ー￣) zzZ",
+        messages = ["Server has shut down gracefully, byeee (＾▽＾)/",
+                    "Server is going to sleep now... (￣ー￣) zzZ zzZ",
                     "Cleaning up connections... all done! (⌒‿⌒)",
                     "Emergency shutdown initiated! (╯°□°）╯",
                     "Server has shut down... see you next time. (ノ﹏ヽ)",
@@ -56,4 +56,4 @@ class Server:
     
 
 server = Server()
-print(server.shutdown())
+#print(server.shutdown())
