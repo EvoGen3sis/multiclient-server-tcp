@@ -60,7 +60,7 @@ class Server:
                 thread = threading.Thread(target = self.handle, args = (conn, caddr), daemon = True)
                 thread.start()
         except KeyboardInterrupt:
-            print(f"Shutting down...")
+            print(f"\nShutting down...")
         finally:
             self.shutdown()
 
