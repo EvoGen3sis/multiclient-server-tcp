@@ -3,7 +3,7 @@ import threading
 import datetime
 import time
 import random
-from concurrent.futures import ThreadPoolExecutor
+#from concurrent.futures import ThreadPoolExecutor
 from client import Client
 
 
@@ -15,7 +15,7 @@ class Server:
         self.port = port
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.clients = []
-        self.pool = ThreadPoolExecutor(4)
+        #self.pool = ThreadPoolExecutor(4)
 
     def client_accept(self):
         pass
