@@ -12,7 +12,7 @@ class Client:
       self.id = id
       self.username = username
 
-   def conn(self):
+   def connect(self):
       self.conn.connect((host, port))
       self.username = input(f"\nPlease enter your username: ")
 
