@@ -41,6 +41,8 @@ class Server:
     def handle(self, client_inst):
         try:
             while True:
+                username = input("\nPlease enter your username: ")
+                client_inst.username = username
                 data = client_inst.conn.recv(1024)
                 if not data:
                     break
@@ -56,11 +58,10 @@ class Server:
         try:
             while True:
                 conn, caddr = self.server.accept()
-                username = input("Please enter your username: ")
                 id = len(self.clients) + 1
-                client_inst = Client(conn, caddr, username, id)
+                client_inst = Client(conn, caddr, id)
                 self.clients.append(client_inst)
-                thread = threading.Thread(target = self.handle, args = (client_inst.conn, client_inst.caddr), daemon = True)
+                thread = threading.Thread(target = self.handle, args = client_inst, daemon = True)
                 thread.start()
         except KeyboardInterrupt:
             print(f"\nShutting down...")
