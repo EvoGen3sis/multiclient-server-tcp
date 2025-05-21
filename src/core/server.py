@@ -38,17 +38,16 @@ class Server:
         rand_message = random.choice(list(messages))
         print(f"\n{rand_message}")
 
-    def handle(self, conn, caddr):
-        #client_inst = Client(conn, caddr)
+    def handle(self, client_inst):
         try:
             while True:
-                data = conn.recv(1024)
+                data = client_inst.conn.recv(1024)
                 if not data:
                     break
                 else:
-                    conn.sendall(data)
+                    client_inst.conn.sendall(data)
         finally:
-            conn.close()
+            client_inst.conn.close()
 
     def start(self):
         self.server.bind((self.host, self.port))
@@ -57,7 +56,11 @@ class Server:
         try:
             while True:
                 conn, caddr = self.server.accept()
-                thread = threading.Thread(target = self.handle, args = (conn, caddr), daemon = True)
+                username = input("Please enter your username: ")
+                id = len(self.clients) + 1
+                client_inst = Client(conn, caddr, username, id)
+                self.clients.append(client_inst)
+                thread = threading.Thread(target = self.handle, args = (client_inst.conn, client_inst.caddr), daemon = True)
                 thread.start()
         except KeyboardInterrupt:
             print(f"\nShutting down...")

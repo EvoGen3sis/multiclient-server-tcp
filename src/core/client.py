@@ -4,12 +4,11 @@ import time
 import threading
 
 class Client:
-    def __init__(self, conn, addr, message):
+    def __init__(self, conn, addr, username: str, id: int):
         self.conn = conn
         self.addr = addr
-        #self.username = username
-        #self.id = id
-        self.message = message
+        self.username = username
+        self.id = id
 
     def send(self):
      pass
