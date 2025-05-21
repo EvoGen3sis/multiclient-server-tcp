@@ -41,8 +41,6 @@ class Server:
     def handle(self, client_inst):
         try:
             while True:
-                username = input("\nPlease enter your username: ")
-                client_inst.username = username
                 data = client_inst.conn.recv(1024)
                 if not data:
                     break
