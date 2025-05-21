@@ -53,7 +53,7 @@ class Server:
     def start(self):
         self.server.bind((self.host, self.port))
         self.server.listen()
-        print(f"Starting...")
+        print(f"Starting server...")
         try:
             while True:
                 conn, caddr = self.server.accept()
@@ -61,12 +61,11 @@ class Server:
                 thread = threading.Thread(target = self.handle, args = (conn, caddr), daemon = True)
                 thread.start()
         except KeyboardInterrupt:
-            print(f"")
+            print(f"Shutting down...")
         finally:
             #self.pool.shutdown(wait = True)
             #thread.join()
             self.shutdown()
-            print(f"")
 
 server = Server()
 server.start()
