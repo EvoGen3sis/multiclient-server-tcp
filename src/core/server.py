@@ -63,5 +63,6 @@ class Server:
             print(f"Shutting down...")
         finally:
             self.shutdown()
-            
-Server.start()
+
+server_inst = Server()
+server_inst.start()
