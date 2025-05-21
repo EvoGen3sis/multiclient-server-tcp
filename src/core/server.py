@@ -57,15 +57,11 @@ class Server:
         try:
             while True:
                 conn, caddr = self.server.accept()
-                #self.pool.submit(self.handle, (conn, caddr))
                 thread = threading.Thread(target = self.handle, args = (conn, caddr), daemon = True)
                 thread.start()
         except KeyboardInterrupt:
             print(f"Shutting down...")
         finally:
-            #self.pool.shutdown(wait = True)
-            #thread.join()
             self.shutdown()
-
-server = Server()
-server.start()
+            
+Server.start()
