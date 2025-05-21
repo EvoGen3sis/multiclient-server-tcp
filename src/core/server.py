@@ -27,44 +27,46 @@ class Server:
         pass
 
     def shutdown(self): # This method is liable to change
-        messages = ["Server has shut down gracefully, byeee (＾▽＾)/",
+        messages = ["Server has shut down gracefully, byeee d[-_-]b",
                     "Server is going to sleep now... (￣ー￣) zzZ zzZ",
                     "Cleaning up connections... all done! (⌒‿⌒)",
                     "Emergency shutdown initiated! (╯°□°）╯",
-                    "Server has shut down... see you next time. (ノ﹏ヽ)",
+                    "Server has shut down... see you next time. =^.^=",
                     "Server out. Catch you later! (⌐■_■)"]
         
         self.server.close()
         rand_message = random.choice(list(messages))
         print(f"\n{rand_message}")
 
-    def handle(self, client_socket, client_addr):
-        client_inst = Client(client_socket, client_addr)
+    def handle(self, conn, caddr):
+        #client_inst = Client(conn, caddr)
         try:
             while True:
-                data = client_inst.client_socket.recv(1024)
+                data = conn.recv(1024)
                 if not data:
                     break
                 else:
-                    client_inst.client_socket.sendall()
+                    conn.sendall(data)
         finally:
-            client_inst.client_socket.close()
+            conn.close()
 
     def start(self):
         self.server.bind((self.host, self.port))
-        self.server.listen(4)
+        self.server.listen()
         print(f"Starting...")
         try:
             while True:
-                client_socket, client_addr = self.server.accept()
-                self.pool.submit(self.handle, client_socket, client_addr)
+                conn, caddr = self.server.accept()
+                #self.pool.submit(self.handle, (conn, caddr))
+                thread = threading.Thread(target = self.handle, args = (conn, caddr), daemon = True)
+                thread.start()
         except KeyboardInterrupt:
             print(f"")
         finally:
-            self.pool.shutdown(wait = True)
+            #self.pool.shutdown(wait = True)
+            #thread.join()
             self.shutdown()
             print(f"")
 
 server = Server()
 server.start()
-#print(server.shutdown())
