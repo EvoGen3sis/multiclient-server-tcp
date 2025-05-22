@@ -35,6 +35,7 @@ class Server:
     def handle(self, client_inst):
         username = client_inst.conn.recv(1024).decode()
         client_inst.username = username
+        print(f"\n[!] {username} connected. ")
         try:
             while True:
                 data = client_inst.conn.recv(1024)
