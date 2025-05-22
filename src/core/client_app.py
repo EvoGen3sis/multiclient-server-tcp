@@ -1,15 +1,21 @@
 import socket
 
-def connect(self):
-    self.conn.connect((self.host, self.port))
-    self.username = input(f"\nPlease enter your username: ")
-    self.conn.sendall(self.username.encode())
+host, port = "127.0.0.1", 2119
+
+def connect():
+    conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    conn.connect((host, port))
+    username = input(f"\nPlease enter your username: ")
+    conn.sendall(username.encode())
     try:
         while True:
             data = input()
             if data.lower() == "quit":
                break
             else:
-               self.conn.sendall(data.encode())
+               conn.sendall(data.encode())
     finally:
-        self.conn.close()
+        conn.close()
+
+if __name__ == "__main__":
+    connect()
