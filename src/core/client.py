@@ -1,7 +1,4 @@
 import socket
-import datetime
-import time
-import threading
 
 host, port = "127.0.0.1", 2119
 
@@ -14,18 +11,13 @@ class Client:
    def connect(self):
       self.conn.connect((host, port))
       self.username = input(f"\nPlease enter your username: ")
-      self.conn.sendall(self.username)
+      self.conn.sendall(self.username.encode())
       try:
          while True:
             data = input()
-            if not data.lower() == "quit":
+            if data.lower() == "quit":
                break
             else:
                self.conn.sendall(data.encode())
-      
-      except KeyboardInterrupt:
-         pass
-
       finally:
          self.conn.close()
-
