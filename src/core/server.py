@@ -53,7 +53,7 @@ class Server:
             while True:
                 conn, addr = self.server.accept()
                 id = len(self.clients) + 1
-                client_inst = Client(conn)
+                client_inst = Client(conn, addr, id)
                 self.clients.append(client_inst)
                 thread = threading.Thread(target = self.handle, args = (client_inst, ), daemon = True)
                 thread.start()
