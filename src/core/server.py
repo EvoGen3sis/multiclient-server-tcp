@@ -15,7 +15,8 @@ class Server:
         pass
 
     def broadcast(self):
-        pass
+        for i in self.clients:
+            pass
 
     def client_remove(self):
         pass
