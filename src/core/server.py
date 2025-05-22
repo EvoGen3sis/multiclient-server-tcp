@@ -14,9 +14,10 @@ class Server:
     def client_accept(self):
         pass
 
-    def broadcast(self):
+    def broadcast(self, sender):
         for i in self.clients:
-            pass
+            if not self.clients[i] == sender:
+                pass
 
     def client_remove(self):
         pass
