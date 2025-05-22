@@ -1,14 +1,14 @@
 import socket
 
-host, port = "127.0.0.1", 2119
-
 class Client:
    def __init__(self):
       self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      self.host = "127.0.0.1"
+      self.port = 2119
       self.username = None
 
    def connect(self):
-      self.conn.connect((host, port))
+      self.conn.connect((self.host, self.port))
       self.username = input(f"\nPlease enter your username: ")
       self.conn.sendall(self.username.encode())
       try:
