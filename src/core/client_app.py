@@ -1,4 +1,5 @@
 import socket
+import threading
 
 host, port = "127.0.0.1", 2119
 
@@ -14,6 +15,15 @@ def connect():
                break
             else:
                conn.sendall(data.encode())
+    finally:
+        conn.close()
+
+def recieve(conn):
+    try:
+        while True:
+            data = conn.recv(1024).decode()
+            if not data:
+                break
     finally:
         conn.close()
 
