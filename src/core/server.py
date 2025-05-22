@@ -1,21 +1,15 @@
 import socket
 import threading
 import datetime
-import time
 import random
-#from concurrent.futures import ThreadPoolExecutor
 from client import Client
 
-
-host, port = "127.0.0.1", 2119
-
 class Server:
-    def __init__(self, host: str = host, port: int = port):
-        self.host = host
-        self.port = port
+    def __init__(self):
+        self.host = "127.0.0.1"
+        self.port = 2119
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.clients = []
-        #self.pool = ThreadPoolExecutor(4)
 
     def client_accept(self):
         pass
@@ -39,6 +33,8 @@ class Server:
         print(f"\n{rand_message}")
 
     def handle(self, client_inst):
+        username = client_inst.conn.recv(1024).decode()
+        client_inst.username = username
         try:
             while True:
                 data = client_inst.conn.recv(1024)
@@ -55,9 +51,9 @@ class Server:
         print(f"Starting server...")
         try:
             while True:
-                conn, caddr = self.server.accept()
+                conn, addr = self.server.accept()
                 id = len(self.clients) + 1
-                client_inst = Client(conn, caddr, id)
+                client_inst = Client(conn)
                 self.clients.append(client_inst)
                 thread = threading.Thread(target = self.handle, args = (client_inst, ), daemon = True)
                 thread.start()
