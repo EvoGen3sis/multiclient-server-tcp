@@ -14,13 +14,16 @@ class Server:
     def client_accept(self):
         pass
 
-    def broadcast(self, sender):
-        for i in self.clients:
-            if not self.clients[i] == sender:
-                pass
+    def broadcast(self, client_inst, data):
+        for client in self.clients:
+            if not client == client_inst:
+                try:
+                    client.conn.sendall(data)
+                except:
+                    self.client_remove(client)
 
-    def client_remove(self):
-        pass
+    def client_remove(self, client_inst):
+        client_inst.conn.close()
 
     def shutdown(self): # This method is liable to change
         messages = ["Server has shut down gracefully, byeee d[-_-]b",
@@ -44,7 +47,8 @@ class Server:
                 if not data:
                     break
                 else:
-                    client_inst.conn.sendall(data)
+                    #client_inst.conn.sendall(data)
+                    self.broadcast(client_inst, data)
         finally:
             client_inst.conn.close()
 
@@ -58,6 +62,7 @@ class Server:
                 id = len(self.clients) + 1
                 client_inst = Client(conn, addr, id)
                 self.clients.append(client_inst)
+                print(self.clients)
                 threading.Thread(target = self.handle, args = (client_inst, ), daemon = True).start()
         except KeyboardInterrupt:
             print(f"\nShutting down...")
