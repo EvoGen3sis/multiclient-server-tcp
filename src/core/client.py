@@ -5,7 +5,6 @@ host, port = "127.0.0.1", 2119
 class Client:
    def __init__(self):
       self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-      self.id = id
       self.username = None
 
    def connect(self):
