@@ -56,8 +56,7 @@ class Server:
                 id = len(self.clients) + 1
                 client_inst = Client(conn, addr, id)
                 self.clients.append(client_inst)
-                thread = threading.Thread(target = self.handle, args = (client_inst, ), daemon = True)
-                thread.start()
+                threading.Thread(target = self.handle, args = (client_inst, ), daemon = True).start()
         except KeyboardInterrupt:
             print(f"\nShutting down...")
         finally:
