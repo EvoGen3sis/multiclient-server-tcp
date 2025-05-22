@@ -22,3 +22,4 @@ class Client:
                self.conn.sendall(data.encode())
       finally:
          self.conn.close()
+
