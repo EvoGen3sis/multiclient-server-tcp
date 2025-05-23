@@ -14,8 +14,8 @@ class Server:
         #self.now = datetime().now()
 
     def gettime(self):
-        now = datetime().now()
-        now_str = now.strftime("%H::%S")
+        now = datetime.now()
+        now_str = now.strftime("%H:%M:%S")
         return now_str
 
     def client_accept(self):

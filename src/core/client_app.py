@@ -10,8 +10,8 @@ class ClientInst:
         self.username = input(f"\nPlease enter your username: ")
 
     def gettime(self):
-        now = datetime().now()
-        now_str = now.strftime("%H::%S")
+        now = datetime.now()
+        now_str = now.strftime("%H:%M:%S")
         return now_str
 
     def receive(self, conn):
@@ -29,9 +29,8 @@ class ClientInst:
     def connect(self):
         conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         conn.connect((self.host, self.port))
-        username = input(f"\nPlease enter your username: ")
-        print(f"username confirmed: @{username}")
-        conn.sendall(username.encode())
+        print(f"username confirmed: @{self.username}")
+        conn.sendall(self.username.encode())
         threading.Thread(target = self.receive, args = (conn,), daemon = True).start()
         try:
             while True:
