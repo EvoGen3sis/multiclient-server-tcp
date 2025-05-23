@@ -18,8 +18,8 @@ class ClientInst:
         try:
             while True:
                 data = conn.recv(1024).decode()
-                now = datetime.now()
-                mssg = Message(self.username, data, now)
+                mssg_timestamp = self.gettime()
+                mssg = Message(self.username, data, mssg_timestamp)
                 if not data:
                     break
                 print(f"{mssg.format}")
