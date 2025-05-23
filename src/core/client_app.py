@@ -9,6 +9,11 @@ class ClientInst:
         self.port = 2119
         self.username = input(f"\nPlease enter your username: ")
 
+    def gettime(self):
+        now = datetime().now()
+        now_str = now.strftime("%H::%S")
+        return now_str
+
     def receive(self, conn):
         try:
             while True:
