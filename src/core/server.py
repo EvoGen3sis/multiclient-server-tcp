@@ -11,7 +11,12 @@ class Server:
         self.port = 2119
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.clients = []
-        self.now = datetime().now()
+        #self.now = datetime().now()
+
+    def gettime(self):
+        now = datetime().now()
+        now_str = now.strftime("%H::%S")
+        return now_str
 
     def client_accept(self):
         pass
