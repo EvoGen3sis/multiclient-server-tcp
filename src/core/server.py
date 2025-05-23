@@ -1,8 +1,9 @@
 import socket
 import threading
-import datetime
+from datetime import datetime
 import random
 from client import Client
+from message import Message
 
 class Server:
     def __init__(self):
@@ -10,6 +11,7 @@ class Server:
         self.port = 2119
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.clients = []
+        self.now = datetime().now()
 
     def client_accept(self):
         pass
@@ -37,6 +39,9 @@ class Server:
         rand_message = random.choice(list(messages))
         print(f"\n{rand_message}")
 
+    def messageinst(self):
+        pass
+
     def handle(self, client_inst):
         username = client_inst.conn.recv(1024).decode()
         client_inst.username = username
@@ -62,7 +67,8 @@ class Server:
                 id = len(self.clients) + 1
                 client_inst = Client(conn, addr, id)
                 self.clients.append(client_inst)
-                print(self.clients)
+                for clients in self.clients:
+                    print(clients)
                 threading.Thread(target = self.handle, args = (client_inst, ), daemon = True).start()
         except KeyboardInterrupt:
             print(f"\nShutting down...")
