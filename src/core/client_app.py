@@ -22,7 +22,7 @@ class ClientInst:
                 mssg = Message(self.username, data, mssg_timestamp)
                 if not data:
                     break
-                print(f"{mssg.format}")
+                print(f"{mssg.format()}")
         finally:
             conn.close()
 
