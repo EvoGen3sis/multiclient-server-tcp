@@ -30,10 +30,11 @@ class Server:
                     self.client_remove(client)
 
     def client_remove(self, client_inst):
-        client_inst.conn.close()
-        self.clients.remove(client_inst)
-        mssg = "\n[!] {} has disconnected.".format(client_inst.username)
-        print(mssg)
+        if client_inst in self.clients:
+            client_inst.conn.close()
+            self.clients.remove(client_inst)
+            mssg = "\n[!] {} has disconnected.".format(client_inst.username)
+            print(mssg)
 
     def shutdown(self): # This method is liable to change
         messages = ["Server has shut down gracefully, byeee d[-_-]b",
@@ -63,7 +64,7 @@ class Server:
                     #client_inst.conn.sendall(data)
                     self.broadcast(client_inst, data)
         finally:
-            client_inst.conn.close()
+            self.client_remove(client_inst)
 
     def start(self):
         self.server.bind((self.host, self.port))
