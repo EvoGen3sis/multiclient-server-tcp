@@ -31,6 +31,9 @@ class Server:
 
     def client_remove(self, client_inst):
         client_inst.conn.close()
+        self.clients.remove(client_inst)
+        mssg = "\n[!] {} has disconnected.".format(client_inst.username)
+        print(mssg)
 
     def shutdown(self): # This method is liable to change
         messages = ["Server has shut down gracefully, byeee d[-_-]b",
@@ -50,7 +53,7 @@ class Server:
     def handle(self, client_inst):
         username = client_inst.conn.recv(1024).decode()
         client_inst.username = username
-        print(f"\n[!] {username} connected. ")
+        print(f"\n[!] {username} connected.")
         try:
             while True:
                 data = client_inst.conn.recv(1024)
@@ -73,7 +76,7 @@ class Server:
                 client_inst = Client(conn, addr, id)
                 self.clients.append(client_inst)
                 for clients in self.clients:
-                    print(clients)
+                    print(clients.username)
                 threading.Thread(target = self.handle, args = (client_inst, ), daemon = True).start()
         except KeyboardInterrupt:
             print(f"\nShutting down...")
