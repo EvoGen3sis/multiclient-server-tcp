@@ -84,5 +84,6 @@ class Server:
         finally:
             self.shutdown()
 
-server_inst = Server()
-server_inst.start()
+if __name__ == "__main__":
+    server_inst = Server()
+    server_inst.start()
